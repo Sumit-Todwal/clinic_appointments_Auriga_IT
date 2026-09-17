@@ -4,6 +4,7 @@ from app.database import engine
 from app.models import Base
 from app.database_constraints import create_appointment_triggers
 from app.routers.auth import router as auth_router
+from app.routers.appointments import router as appointments_router
 
 app = FastAPI(
     title="Clinic Appointment System",
@@ -16,6 +17,7 @@ from app.database_constraints import create_appointment_triggers
 
 create_appointment_triggers()
 app.include_router(auth_router)
+app.include_router(appointments_router)
 
 @app.get("/")
 def root():
