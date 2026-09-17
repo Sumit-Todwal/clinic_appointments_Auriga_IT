@@ -1,10 +1,14 @@
 from datetime import datetime, timedelta, timezone
+from os import getenv
 
 from jose import JWTError, jwt
 from pwdlib import PasswordHash
 
 
-SECRET_KEY = "clinic-assessment-secret-key-change-later"
+SECRET_KEY = getenv(
+    "CLINIC_SECRET_KEY",
+    "clinic-assessment-secret-key-change-later",
+)
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
 

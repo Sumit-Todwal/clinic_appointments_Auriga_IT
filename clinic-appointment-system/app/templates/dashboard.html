@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard - ClinicCare</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<nav>
+    <h2>ClinicCare</h2>
+
+    <button onclick="logout()">Logout</button>
+</nav>
+
+<main class="dashboard">
+
+    <h1 id="welcome">Dashboard</h1>
+
+    <section>
+
+        <h2>Find a Doctor</h2>
+
+        <div class="search-bar">
+
+            <input
+                id="doctorSearch"
+                placeholder="Search specialization..."
+            >
+
+            <select id="sortDoctors">
+                <option value="experience">Experience</option>
+                <option value="fee">Fee</option>
+            </select>
+
+            <button onclick="loadDoctors()">
+                Search
+            </button>
+
+        </div>
+
+        <div id="doctors" class="cards"></div>
+
+    </section>
+
+    <section>
+
+        <h2>My Appointments</h2>
+
+        <div id="appointments"></div>
+
+    </section>
+
+</main>
+
+<script src="/static/app.js"></script>
+
+</body>
+</html>

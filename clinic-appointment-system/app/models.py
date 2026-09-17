@@ -188,7 +188,7 @@ class Appointment(Base):
         CheckConstraint(
             "status IN "
             "('booked', 'cancelled_early', "
-            "'cancelled_late', 'completed')",
+            "'cancelled_late', 'completed', 'no_show')",
             name="check_appointment_status",
         ),
 

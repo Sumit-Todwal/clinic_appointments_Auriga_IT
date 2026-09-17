@@ -1,0 +1,182 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f6f7fb;
+    color: #202124;
+}
+
+nav {
+    height: 70px;
+    padding: 0 8%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    border-bottom: 1px solid #eee;
+}
+
+nav h2 {
+    margin: 0;
+}
+
+nav a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #333;
+}
+
+.hero {
+    padding: 100px 10%;
+    background: white;
+}
+
+.hero > div {
+    max-width: 700px;
+}
+
+.eyebrow {
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.hero h1 {
+    font-size: 50px;
+    line-height: 1.1;
+    margin: 20px 0;
+}
+
+.hero h1 span {
+    display: block;
+}
+
+.hero p {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.primary-button,
+.nav-button {
+    display: inline-block;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #222;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.section {
+    padding: 60px 10%;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #e5e5e5;
+}
+
+.benefits {
+    line-height: 2;
+    font-size: 18px;
+}
+
+footer {
+    padding: 30px;
+    text-align: center;
+    background: white;
+}
+
+.auth-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-card {
+    width: 400px;
+    background: white;
+    padding: 35px;
+    border-radius: 15px;
+    border: 1px solid #ddd;
+}
+
+.auth-card input,
+.auth-card select,
+.search-bar input,
+.search-bar select {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+}
+
+.auth-card button {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.dashboard {
+    padding: 40px 8%;
+}
+
+.search-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.search-bar input {
+    flex: 1;
+}
+
+.search-bar select {
+    width: 180px;
+}
+
+.appointment {
+    background: white;
+    padding: 20px;
+    margin: 12px 0;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.appointment button {
+    margin-left: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+@media (max-width: 800px) {
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .hero h1 {
+        font-size: 38px;
+    }
+
+    .search-bar {
+        flex-direction: column;
+    }
+
+}

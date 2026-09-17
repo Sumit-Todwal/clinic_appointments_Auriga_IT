@@ -78,19 +78,24 @@ def register(
     )
 
     db.add(user)
-    db.commit()
-    db.refresh(user)
 
     if data.role == "doctor":
-        doctor = Doctor(
-            user_id=user.id,
+        user.doctor_profile = Doctor(
             specialization=data.specialization,
             experience=data.experience,
             consultation_fee=data.consultation_fee,
         )
 
-        db.add(doctor)
+    try:
         db.commit()
+    except IntegrityError:
+        db.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Email already registered",
+        )
+
+    db.refresh(user)
 
     return user
 

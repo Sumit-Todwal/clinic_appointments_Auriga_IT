@@ -297,3 +297,89 @@ def reschedule_appointment(
         )
 
     return appointment
+
+@router.post("/clock")
+def run_clock(
+    db: Session = Depends(get_db),
+):
+    now = datetime.utcnow()
+    cutoff = now - timedelta(minutes=30)
+
+    appointments = (
+        db.query(Appointment)
+        .filter(
+            Appointment.status == "booked",
+            Appointment.start_time <= cutoff,
+        )
+        .all()
+    )
+
+    updated = 0
+
+    for appointment in appointments:
+        appointment.status = "no_show"
+        updated += 1
+
+    db.commit()
+
+    return {
+        "message": "Clock processed successfully",
+        "no_show_count": updated,
+    }
+
+@router.post("/outbox")
+def generate_daily_reminders(
+    db: Session = Depends(get_db),
+):
+    today = datetime.utcnow().date()
+
+    start_of_day = datetime.combine(
+        today,
+        datetime.min.time(),
+    )
+
+    end_of_day = start_of_day + timedelta(days=1)
+
+    appointments = (
+        db.query(Appointment)
+        .filter(
+            Appointment.status == "booked",
+            Appointment.start_time >= start_of_day,
+            Appointment.start_time < end_of_day,
+        )
+        .order_by(Appointment.start_time.asc())
+        .all()
+    )
+
+    reminders = []
+
+    for appointment in appointments:
+        patient = db.get(
+            User,
+            appointment.patient_id,
+        )
+
+        doctor = db.get(
+            Doctor,
+            appointment.doctor_id,
+        )
+
+        reminders.append({
+            "appointment_id": appointment.id,
+            "patient_id": appointment.patient_id,
+            "patient_name": patient.name,
+            "doctor_id": appointment.doctor_id,
+            "doctor_name": doctor.user.name,
+            "appointment_time": appointment.start_time,
+            "message": (
+                f"Reminder: You have an appointment with "
+                f"Dr. {doctor.user.name} at "
+                f"{appointment.start_time.strftime('%H:%M')}."
+            ),
+        })
+
+    return {
+        "date": str(today),
+        "reminder_count": len(reminders),
+        "reminders": reminders,
+    }
